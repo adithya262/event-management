@@ -117,7 +117,7 @@ uvicorn app.main:app --reload
 
 ## 📂 Directory Structure
 
-event-management/
+'''event-management/
 │
 ├── app/ # Main application package
 │ ├── api/ # API route definitions (FastAPI routers)
@@ -136,7 +136,7 @@ event-management/
 ├── requirements.txt # Python dependencies
 ├── alembic.ini # Alembic configuration file
 ├── .env.example # Example environment variable file
-└── README.md # Project documentation
+└── README.md # Project documentation'''
 
 
 
