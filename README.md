@@ -117,7 +117,27 @@ uvicorn app.main:app --reload
 
 ## 📂 Directory Structure
 
-<pre> ```bash event-management/ ├── app/ │ ├── api/ # API routers │ ├── core/ # App settings, JWT config │ ├── db/ # SQLAlchemy session and base │ ├── models/ # SQLAlchemy models │ ├── schemas/ # Pydantic schemas │ ├── services/ # Business logic │ └── main.py # Entry point ├── alembic/ # DB migration scripts ├── tests/ # Unit tests ├── docker-compose.yml ├── requirements.txt ├── alembic.ini ├── .env.example └── README.md ``` </pre>
+event-management/
+│
+├── app/                          # Main application package
+│   ├── api/                      # API route definitions (FastAPI routers)
+│   ├── core/                     # App settings, security, JWT utilities
+│   ├── db/                       # Database session and base setup
+│   ├── models/                   # SQLAlchemy ORM models
+│   ├── schemas/                  # Pydantic schemas for requests/responses
+│   ├── services/                 # Business logic and service layer
+│   └── main.py                   # Application entry point (FastAPI instance)
+│
+├── alembic/                      # Alembic migrations directory
+│
+├── tests/                        # Unit and integration tests
+│
+├── docker-compose.yml           # Docker orchestration config
+├── requirements.txt             # Python dependencies
+├── alembic.ini                  # Alembic configuration file
+├── .env.example                 # Example environment variable file
+└── README.md                    # Project documentation
+
 
 
 
