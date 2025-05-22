@@ -4,8 +4,9 @@ A collaborative event/task management system built with **FastAPI**, **PostgreSQ
 
 This documentation describes how to install, configure, and run the API, including available endpoints and environment configurations.
 
-[Task Documentation](https://github.com/adithya262/event-management/blob/main/Task_documentation)
+[Task Documentation](https://github.com/adithya262/event-management/blob/main/Task_documentation)  
 [ReadME](https://github.com/adithya262/event-management/blob/main/README.md)
+
 ---
 
 ## 📘 Overview
