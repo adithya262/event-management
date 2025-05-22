@@ -7,8 +7,6 @@ This documentation describes how to install, configure, and run the API, includi
 [Task Documentation](https://github.com/adithya262/event-management/blob/main/Task_documentation)  
 [ReadME](https://github.com/adithya262/event-management/blob/main/README.md)
 ![image](https://github.com/user-attachments/assets/3ca8e0e7-4c78-4ff2-8adb-86d87d4d47d0)
-![image](https://github.com/user-attachments/assets/1d660e48-b762-447f-82dd-30d48c2b33f4)
-
 
 
 ---
