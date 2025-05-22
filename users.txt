@@ -1,0 +1,23 @@
+Owner:
+  email: admin@example.com
+  username: admin
+  password: admin123
+  full_name: Admin User
+  role: owner
+  is_superuser: true
+
+User 1:
+  email: user1@example.com
+  username: user1
+  password: user1pass
+  full_name: User One
+  role: viewer
+  is_superuser: false
+
+User 2:
+  email: user2@example.com
+  username: user2
+  password: user2pass
+  full_name: User Two
+  role: editor
+  is_superuser: false

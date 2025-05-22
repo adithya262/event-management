@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Event Invitation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            background-color: #4a90e2;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 5px 5px 0 0;
+        }
+        .content {
+            padding: 20px;
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            border-radius: 0 0 5px 5px;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #4a90e2;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            color: #666;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Event Invitation</h1>
+    </div>
+    <div class="content">
+        <p>Hello {{ user.name }},</p>
+        <p>You have been invited to the following event:</p>
+        <h2>{{ event.title }}</h2>
+        <p><strong>Date:</strong> {{ event.start_time.strftime('%B %d, %Y') }}</p>
+        <p><strong>Time:</strong> {{ event.start_time.strftime('%I:%M %p') }} - {{ event.end_time.strftime('%I:%M %p') }}</p>
+        <p><strong>Location:</strong> {{ event.location }}</p>
+        <p><strong>Description:</strong></p>
+        <p>{{ event.description }}</p>
+        <p>
+            <a href="{{ event.url }}" class="button">View Event Details</a>
+        </p>
+    </div>
+    <div class="footer">
+        <p>This is an automated message from the Event Management System.</p>
+    </div>
+</body>
+</html> 

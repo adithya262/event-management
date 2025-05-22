@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = "-v --tb=short"
+markers = [
+    "asyncio: mark a test as an async test",
+    "integration: mark a test as an integration test",
+    "unit: mark a test as a unit test"
+]
+
+[tool.pylance]
+reportMissingImports = false
+
+[tool.pyright]
+reportMissingImports = false 

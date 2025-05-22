@@ -1,0 +1,525 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.9.6, pytest-8.0.0, pluggy-1.6.0 -- /Users/abhaycharran/Desktop/Event Management/venv/bin/python3
+cachedir: .pytest_cache
+rootdir: /Users/abhaycharran/Desktop/Event Management
+configfile: pytest.ini
+testpaths: tests
+plugins: asyncio-0.23.5, anyio-3.7.1, cov-6.1.1
+asyncio: mode=auto
+collecting ... collected 69 items
+
+tests/test_changelog.py::test_get_entity_changelog FAILED                [  1%]
+tests/test_changelog.py::test_get_changes_between_versions FAILED        [  2%]
+tests/test_changelog.py::test_generate_unified_diff FAILED               [  4%]
+tests/test_changelog.py::test_date_filtered_changelog FAILED             [  5%]
+tests/test_changelog.py::test_invalid_version_comparison FAILED          [  7%]
+
+=================================== FAILURES ===================================
+__________________________ test_get_entity_changelog ___________________________
+venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py:2113: in _exec_insertmany_context
+    dialect.do_execute(
+venv/lib/python3.9/site-packages/sqlalchemy/engine/default.py:922: in do_execute
+    cursor.execute(statement, parameters)
+venv/lib/python3.9/site-packages/sqlalchemy/dialects/sqlite/aiosqlite.py:146: in execute
+    self._adapt_connection._handle_exception(error)
+venv/lib/python3.9/site-packages/sqlalchemy/dialects/sqlite/aiosqlite.py:298: in _handle_exception
+    raise error
+venv/lib/python3.9/site-packages/sqlalchemy/dialects/sqlite/aiosqlite.py:128: in execute
+    self.await_(_cursor.execute(operation, parameters))
+venv/lib/python3.9/site-packages/sqlalchemy/util/_concurrency_py3k.py:130: in await_only
+    return current.driver.switch(awaitable)  # type: ignore[no-any-return]
+venv/lib/python3.9/site-packages/sqlalchemy/util/_concurrency_py3k.py:195: in greenlet_spawn
+    value = await result
+venv/lib/python3.9/site-packages/aiosqlite/cursor.py:40: in execute
+    await self._execute(self._cursor.execute, sql, parameters)
+venv/lib/python3.9/site-packages/aiosqlite/cursor.py:32: in _execute
+    return await self._conn._execute(fn, *args, **kwargs)
+venv/lib/python3.9/site-packages/aiosqlite/core.py:122: in _execute
+    return await future
+venv/lib/python3.9/site-packages/aiosqlite/core.py:105: in run
+    result = function()
+E   sqlite3.IntegrityError: NOT NULL constraint failed: versions.created_by
+
+The above exception was the direct cause of the following exception:
+tests/test_changelog.py:56: in test_get_entity_changelog
+    await session.commit()
+venv/lib/python3.9/site-packages/sqlalchemy/ext/asyncio/session.py:1011: in commit
+    await greenlet_spawn(self.sync_session.commit)
+venv/lib/python3.9/site-packages/sqlalchemy/util/_concurrency_py3k.py:202: in greenlet_spawn
+    result = context.switch(value)
+venv/lib/python3.9/site-packages/sqlalchemy/orm/session.py:1969: in commit
+    trans.commit(_to_root=True)
+<string>:2: in commit
+    ???
+venv/lib/python3.9/site-packages/sqlalchemy/orm/state_changes.py:139: in _go
+    ret_value = fn(self, *arg, **kw)
+venv/lib/python3.9/site-packages/sqlalchemy/orm/session.py:1256: in commit
+    self._prepare_impl()
+<string>:2: in _prepare_impl
+    ???
+venv/lib/python3.9/site-packages/sqlalchemy/orm/state_changes.py:139: in _go
+    ret_value = fn(self, *arg, **kw)
+venv/lib/python3.9/site-packages/sqlalchemy/orm/session.py:1231: in _prepare_impl
+    self.session.flush()
+venv/lib/python3.9/site-packages/sqlalchemy/orm/session.py:4312: in flush
+    self._flush(objects)
+venv/lib/python3.9/site-packages/sqlalchemy/orm/session.py:4448: in _flush
+    transaction.rollback(_capture_exception=True)
+venv/lib/python3.9/site-packages/sqlalchemy/util/langhelpers.py:146: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+venv/lib/python3.9/site-packages/sqlalchemy/orm/session.py:4408: in _flush
+    flush_context.execute()
+venv/lib/python3.9/site-packages/sqlalchemy/orm/unitofwork.py:466: in execute
+    rec.execute(self)
+venv/lib/python3.9/site-packages/sqlalchemy/orm/unitofwork.py:642: in execute
+    util.preloaded.orm_persistence.save_obj(
+venv/lib/python3.9/site-packages/sqlalchemy/orm/persistence.py:93: in save_obj
+    _emit_insert_statements(
+venv/lib/python3.9/site-packages/sqlalchemy/orm/persistence.py:1137: in _emit_insert_statements
+    result = connection.execute(
+venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py:1416: in execute
+    return meth(
+venv/lib/python3.9/site-packages/sqlalchemy/sql/elements.py:517: in _execute_on_connection
+    return connection._execute_clauseelement(
+venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py:1639: in _execute_clauseelement
+    ret = self._execute_context(
+venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py:1843: in _execute_context
+    return self._exec_insertmany_context(
+venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py:2121: in _exec_insertmany_context
+    self._handle_dbapi_exception(
+venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py:2344: in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py:2113: in _exec_insertmany_context
+    dialect.do_execute(
+venv/lib/python3.9/site-packages/sqlalchemy/engine/default.py:922: in do_execute
+    cursor.execute(statement, parameters)
+venv/lib/python3.9/site-packages/sqlalchemy/dialects/sqlite/aiosqlite.py:146: in execute
+    self._adapt_connection._handle_exception(error)
+venv/lib/python3.9/site-packages/sqlalchemy/dialects/sqlite/aiosqlite.py:298: in _handle_exception
+    raise error
+venv/lib/python3.9/site-packages/sqlalchemy/dialects/sqlite/aiosqlite.py:128: in execute
+    self.await_(_cursor.execute(operation, parameters))
+venv/lib/python3.9/site-packages/sqlalchemy/util/_concurrency_py3k.py:130: in await_only
+    return current.driver.switch(awaitable)  # type: ignore[no-any-return]
+venv/lib/python3.9/site-packages/sqlalchemy/util/_concurrency_py3k.py:195: in greenlet_spawn
+    value = await result
+venv/lib/python3.9/site-packages/aiosqlite/cursor.py:40: in execute
+    await self._execute(self._cursor.execute, sql, parameters)
+venv/lib/python3.9/site-packages/aiosqlite/cursor.py:32: in _execute
+    return await self._conn._execute(fn, *args, **kwargs)
+venv/lib/python3.9/site-packages/aiosqlite/core.py:122: in _execute
+    return await future
+venv/lib/python3.9/site-packages/aiosqlite/core.py:105: in run
+    result = function()
+E   sqlalchemy.exc.IntegrityError: (sqlite3.IntegrityError) NOT NULL constraint failed: versions.created_by
+E   [SQL: INSERT INTO versions (created_by, entity_type, entity_id, version_number, current_state, id, created_at, updated_at, is_active) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?)]
+E   [parameters: (None, 'event', '123', 1, '{"title": "Initial Event", "description": "First version", "location": "Room A"}', 'e3620097-8898-4ddb-87b3-11c69c651f36', '2025-05-19 17:17:12.476886', '2025-05-21 11:47:12.488164', 1, None, 'event', '123', 2, '{"title": "Updated Event", "description": "Second version", "location": "Room B", "max_participants": 10}', '2994815d-ee72-4532-8572-bc07c0a58481', '2025-05-20 17:17:12.476893', '2025-05-21 11:47:12.488170', 1, None, 'event', '123', 3, '{"title": "Final Event", "description": "Third version", "location": "Room C", "max_participants": 20, "status": "active"}', '0a955eb4-010a-4937-90be-67d99404b242', '2025-05-21 17:17:12.476894', '2025-05-21 11:47:12.488174', 1)]
+E   (Background on this error at: https://sqlalche.me/e/20/gkpj)
+______________________ test_get_changes_between_versions _______________________
+venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py:2113: in _exec_insertmany_context
+    dialect.do_execute(
+venv/lib/python3.9/site-packages/sqlalchemy/engine/default.py:922: in do_execute
+    cursor.execute(statement, parameters)
+venv/lib/python3.9/site-packages/sqlalchemy/dialects/sqlite/aiosqlite.py:146: in execute
+    self._adapt_connection._handle_exception(error)
+venv/lib/python3.9/site-packages/sqlalchemy/dialects/sqlite/aiosqlite.py:298: in _handle_exception
+    raise error
+venv/lib/python3.9/site-packages/sqlalchemy/dialects/sqlite/aiosqlite.py:128: in execute
+    self.await_(_cursor.execute(operation, parameters))
+venv/lib/python3.9/site-packages/sqlalchemy/util/_concurrency_py3k.py:130: in await_only
+    return current.driver.switch(awaitable)  # type: ignore[no-any-return]
+venv/lib/python3.9/site-packages/sqlalchemy/util/_concurrency_py3k.py:195: in greenlet_spawn
+    value = await result
+venv/lib/python3.9/site-packages/aiosqlite/cursor.py:40: in execute
+    await self._execute(self._cursor.execute, sql, parameters)
+venv/lib/python3.9/site-packages/aiosqlite/cursor.py:32: in _execute
+    return await self._conn._execute(fn, *args, **kwargs)
+venv/lib/python3.9/site-packages/aiosqlite/core.py:122: in _execute
+    return await future
+venv/lib/python3.9/site-packages/aiosqlite/core.py:105: in run
+    result = function()
+E   sqlite3.IntegrityError: NOT NULL constraint failed: versions.created_by
+
+The above exception was the direct cause of the following exception:
+tests/test_changelog.py:75: in test_get_changes_between_versions
+    await session.commit()
+venv/lib/python3.9/site-packages/sqlalchemy/ext/asyncio/session.py:1011: in commit
+    await greenlet_spawn(self.sync_session.commit)
+venv/lib/python3.9/site-packages/sqlalchemy/util/_concurrency_py3k.py:202: in greenlet_spawn
+    result = context.switch(value)
+venv/lib/python3.9/site-packages/sqlalchemy/orm/session.py:1969: in commit
+    trans.commit(_to_root=True)
+<string>:2: in commit
+    ???
+venv/lib/python3.9/site-packages/sqlalchemy/orm/state_changes.py:139: in _go
+    ret_value = fn(self, *arg, **kw)
+venv/lib/python3.9/site-packages/sqlalchemy/orm/session.py:1256: in commit
+    self._prepare_impl()
+<string>:2: in _prepare_impl
+    ???
+venv/lib/python3.9/site-packages/sqlalchemy/orm/state_changes.py:139: in _go
+    ret_value = fn(self, *arg, **kw)
+venv/lib/python3.9/site-packages/sqlalchemy/orm/session.py:1231: in _prepare_impl
+    self.session.flush()
+venv/lib/python3.9/site-packages/sqlalchemy/orm/session.py:4312: in flush
+    self._flush(objects)
+venv/lib/python3.9/site-packages/sqlalchemy/orm/session.py:4448: in _flush
+    transaction.rollback(_capture_exception=True)
+venv/lib/python3.9/site-packages/sqlalchemy/util/langhelpers.py:146: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+venv/lib/python3.9/site-packages/sqlalchemy/orm/session.py:4408: in _flush
+    flush_context.execute()
+venv/lib/python3.9/site-packages/sqlalchemy/orm/unitofwork.py:466: in execute
+    rec.execute(self)
+venv/lib/python3.9/site-packages/sqlalchemy/orm/unitofwork.py:642: in execute
+    util.preloaded.orm_persistence.save_obj(
+venv/lib/python3.9/site-packages/sqlalchemy/orm/persistence.py:93: in save_obj
+    _emit_insert_statements(
+venv/lib/python3.9/site-packages/sqlalchemy/orm/persistence.py:1137: in _emit_insert_statements
+    result = connection.execute(
+venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py:1416: in execute
+    return meth(
+venv/lib/python3.9/site-packages/sqlalchemy/sql/elements.py:517: in _execute_on_connection
+    return connection._execute_clauseelement(
+venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py:1639: in _execute_clauseelement
+    ret = self._execute_context(
+venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py:1843: in _execute_context
+    return self._exec_insertmany_context(
+venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py:2121: in _exec_insertmany_context
+    self._handle_dbapi_exception(
+venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py:2344: in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py:2113: in _exec_insertmany_context
+    dialect.do_execute(
+venv/lib/python3.9/site-packages/sqlalchemy/engine/default.py:922: in do_execute
+    cursor.execute(statement, parameters)
+venv/lib/python3.9/site-packages/sqlalchemy/dialects/sqlite/aiosqlite.py:146: in execute
+    self._adapt_connection._handle_exception(error)
+venv/lib/python3.9/site-packages/sqlalchemy/dialects/sqlite/aiosqlite.py:298: in _handle_exception
+    raise error
+venv/lib/python3.9/site-packages/sqlalchemy/dialects/sqlite/aiosqlite.py:128: in execute
+    self.await_(_cursor.execute(operation, parameters))
+venv/lib/python3.9/site-packages/sqlalchemy/util/_concurrency_py3k.py:130: in await_only
+    return current.driver.switch(awaitable)  # type: ignore[no-any-return]
+venv/lib/python3.9/site-packages/sqlalchemy/util/_concurrency_py3k.py:195: in greenlet_spawn
+    value = await result
+venv/lib/python3.9/site-packages/aiosqlite/cursor.py:40: in execute
+    await self._execute(self._cursor.execute, sql, parameters)
+venv/lib/python3.9/site-packages/aiosqlite/cursor.py:32: in _execute
+    return await self._conn._execute(fn, *args, **kwargs)
+venv/lib/python3.9/site-packages/aiosqlite/core.py:122: in _execute
+    return await future
+venv/lib/python3.9/site-packages/aiosqlite/core.py:105: in run
+    result = function()
+E   sqlalchemy.exc.IntegrityError: (sqlite3.IntegrityError) NOT NULL constraint failed: versions.created_by
+E   [SQL: INSERT INTO versions (created_by, entity_type, entity_id, version_number, current_state, id, created_at, updated_at, is_active) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?)]
+E   [parameters: (None, 'event', '123', 1, '{"title": "Initial Event", "description": "First version", "location": "Room A"}', '745238ac-d816-4fed-bd6c-313003947771', '2025-05-19 17:17:12.783267', '2025-05-21 11:47:12.783801', 1, None, 'event', '123', 2, '{"title": "Updated Event", "description": "Second version", "location": "Room B", "max_participants": 10}', '435d870d-473b-4011-8517-b2c02792e948', '2025-05-20 17:17:12.783274', '2025-05-21 11:47:12.783806', 1, None, 'event', '123', 3, '{"title": "Final Event", "description": "Third version", "location": "Room C", "max_participants": 20, "status": "active"}', '74bb3b5b-cfcb-4e79-a468-d793fa5a8515', '2025-05-21 17:17:12.783275', '2025-05-21 11:47:12.783809', 1)]
+E   (Background on this error at: https://sqlalche.me/e/20/gkpj)
+__________________________ test_generate_unified_diff __________________________
+venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py:2113: in _exec_insertmany_context
+    dialect.do_execute(
+venv/lib/python3.9/site-packages/sqlalchemy/engine/default.py:922: in do_execute
+    cursor.execute(statement, parameters)
+venv/lib/python3.9/site-packages/sqlalchemy/dialects/sqlite/aiosqlite.py:146: in execute
+    self._adapt_connection._handle_exception(error)
+venv/lib/python3.9/site-packages/sqlalchemy/dialects/sqlite/aiosqlite.py:298: in _handle_exception
+    raise error
+venv/lib/python3.9/site-packages/sqlalchemy/dialects/sqlite/aiosqlite.py:128: in execute
+    self.await_(_cursor.execute(operation, parameters))
+venv/lib/python3.9/site-packages/sqlalchemy/util/_concurrency_py3k.py:130: in await_only
+    return current.driver.switch(awaitable)  # type: ignore[no-any-return]
+venv/lib/python3.9/site-packages/sqlalchemy/util/_concurrency_py3k.py:195: in greenlet_spawn
+    value = await result
+venv/lib/python3.9/site-packages/aiosqlite/cursor.py:40: in execute
+    await self._execute(self._cursor.execute, sql, parameters)
+venv/lib/python3.9/site-packages/aiosqlite/cursor.py:32: in _execute
+    return await self._conn._execute(fn, *args, **kwargs)
+venv/lib/python3.9/site-packages/aiosqlite/core.py:122: in _execute
+    return await future
+venv/lib/python3.9/site-packages/aiosqlite/core.py:105: in run
+    result = function()
+E   sqlite3.IntegrityError: NOT NULL constraint failed: versions.created_by
+
+The above exception was the direct cause of the following exception:
+tests/test_changelog.py:96: in test_generate_unified_diff
+    await session.commit()
+venv/lib/python3.9/site-packages/sqlalchemy/ext/asyncio/session.py:1011: in commit
+    await greenlet_spawn(self.sync_session.commit)
+venv/lib/python3.9/site-packages/sqlalchemy/util/_concurrency_py3k.py:202: in greenlet_spawn
+    result = context.switch(value)
+venv/lib/python3.9/site-packages/sqlalchemy/orm/session.py:1969: in commit
+    trans.commit(_to_root=True)
+<string>:2: in commit
+    ???
+venv/lib/python3.9/site-packages/sqlalchemy/orm/state_changes.py:139: in _go
+    ret_value = fn(self, *arg, **kw)
+venv/lib/python3.9/site-packages/sqlalchemy/orm/session.py:1256: in commit
+    self._prepare_impl()
+<string>:2: in _prepare_impl
+    ???
+venv/lib/python3.9/site-packages/sqlalchemy/orm/state_changes.py:139: in _go
+    ret_value = fn(self, *arg, **kw)
+venv/lib/python3.9/site-packages/sqlalchemy/orm/session.py:1231: in _prepare_impl
+    self.session.flush()
+venv/lib/python3.9/site-packages/sqlalchemy/orm/session.py:4312: in flush
+    self._flush(objects)
+venv/lib/python3.9/site-packages/sqlalchemy/orm/session.py:4448: in _flush
+    transaction.rollback(_capture_exception=True)
+venv/lib/python3.9/site-packages/sqlalchemy/util/langhelpers.py:146: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+venv/lib/python3.9/site-packages/sqlalchemy/orm/session.py:4408: in _flush
+    flush_context.execute()
+venv/lib/python3.9/site-packages/sqlalchemy/orm/unitofwork.py:466: in execute
+    rec.execute(self)
+venv/lib/python3.9/site-packages/sqlalchemy/orm/unitofwork.py:642: in execute
+    util.preloaded.orm_persistence.save_obj(
+venv/lib/python3.9/site-packages/sqlalchemy/orm/persistence.py:93: in save_obj
+    _emit_insert_statements(
+venv/lib/python3.9/site-packages/sqlalchemy/orm/persistence.py:1137: in _emit_insert_statements
+    result = connection.execute(
+venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py:1416: in execute
+    return meth(
+venv/lib/python3.9/site-packages/sqlalchemy/sql/elements.py:517: in _execute_on_connection
+    return connection._execute_clauseelement(
+venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py:1639: in _execute_clauseelement
+    ret = self._execute_context(
+venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py:1843: in _execute_context
+    return self._exec_insertmany_context(
+venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py:2121: in _exec_insertmany_context
+    self._handle_dbapi_exception(
+venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py:2344: in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py:2113: in _exec_insertmany_context
+    dialect.do_execute(
+venv/lib/python3.9/site-packages/sqlalchemy/engine/default.py:922: in do_execute
+    cursor.execute(statement, parameters)
+venv/lib/python3.9/site-packages/sqlalchemy/dialects/sqlite/aiosqlite.py:146: in execute
+    self._adapt_connection._handle_exception(error)
+venv/lib/python3.9/site-packages/sqlalchemy/dialects/sqlite/aiosqlite.py:298: in _handle_exception
+    raise error
+venv/lib/python3.9/site-packages/sqlalchemy/dialects/sqlite/aiosqlite.py:128: in execute
+    self.await_(_cursor.execute(operation, parameters))
+venv/lib/python3.9/site-packages/sqlalchemy/util/_concurrency_py3k.py:130: in await_only
+    return current.driver.switch(awaitable)  # type: ignore[no-any-return]
+venv/lib/python3.9/site-packages/sqlalchemy/util/_concurrency_py3k.py:195: in greenlet_spawn
+    value = await result
+venv/lib/python3.9/site-packages/aiosqlite/cursor.py:40: in execute
+    await self._execute(self._cursor.execute, sql, parameters)
+venv/lib/python3.9/site-packages/aiosqlite/cursor.py:32: in _execute
+    return await self._conn._execute(fn, *args, **kwargs)
+venv/lib/python3.9/site-packages/aiosqlite/core.py:122: in _execute
+    return await future
+venv/lib/python3.9/site-packages/aiosqlite/core.py:105: in run
+    result = function()
+E   sqlalchemy.exc.IntegrityError: (sqlite3.IntegrityError) NOT NULL constraint failed: versions.created_by
+E   [SQL: INSERT INTO versions (created_by, entity_type, entity_id, version_number, current_state, id, created_at, updated_at, is_active) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?)]
+E   [parameters: (None, 'event', '123', 1, '{"title": "Initial Event", "description": "First version", "location": "Room A"}', 'bab8398f-9aa4-4a4a-b933-aded6765e850', '2025-05-19 17:17:13.031285', '2025-05-21 11:47:13.031831', 1, None, 'event', '123', 2, '{"title": "Updated Event", "description": "Second version", "location": "Room B", "max_participants": 10}', 'e6998907-c628-416c-89bb-5604be79db02', '2025-05-20 17:17:13.031291', '2025-05-21 11:47:13.031835', 1, None, 'event', '123', 3, '{"title": "Final Event", "description": "Third version", "location": "Room C", "max_participants": 20, "status": "active"}', '0ea8df4f-4378-4be2-805c-aaaca8a725cf', '2025-05-21 17:17:13.031292', '2025-05-21 11:47:13.031839', 1)]
+E   (Background on this error at: https://sqlalche.me/e/20/gkpj)
+_________________________ test_date_filtered_changelog _________________________
+venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py:2113: in _exec_insertmany_context
+    dialect.do_execute(
+venv/lib/python3.9/site-packages/sqlalchemy/engine/default.py:922: in do_execute
+    cursor.execute(statement, parameters)
+venv/lib/python3.9/site-packages/sqlalchemy/dialects/sqlite/aiosqlite.py:146: in execute
+    self._adapt_connection._handle_exception(error)
+venv/lib/python3.9/site-packages/sqlalchemy/dialects/sqlite/aiosqlite.py:298: in _handle_exception
+    raise error
+venv/lib/python3.9/site-packages/sqlalchemy/dialects/sqlite/aiosqlite.py:128: in execute
+    self.await_(_cursor.execute(operation, parameters))
+venv/lib/python3.9/site-packages/sqlalchemy/util/_concurrency_py3k.py:130: in await_only
+    return current.driver.switch(awaitable)  # type: ignore[no-any-return]
+venv/lib/python3.9/site-packages/sqlalchemy/util/_concurrency_py3k.py:195: in greenlet_spawn
+    value = await result
+venv/lib/python3.9/site-packages/aiosqlite/cursor.py:40: in execute
+    await self._execute(self._cursor.execute, sql, parameters)
+venv/lib/python3.9/site-packages/aiosqlite/cursor.py:32: in _execute
+    return await self._conn._execute(fn, *args, **kwargs)
+venv/lib/python3.9/site-packages/aiosqlite/core.py:122: in _execute
+    return await future
+venv/lib/python3.9/site-packages/aiosqlite/core.py:105: in run
+    result = function()
+E   sqlite3.IntegrityError: NOT NULL constraint failed: versions.created_by
+
+The above exception was the direct cause of the following exception:
+tests/test_changelog.py:116: in test_date_filtered_changelog
+    await session.commit()
+venv/lib/python3.9/site-packages/sqlalchemy/ext/asyncio/session.py:1011: in commit
+    await greenlet_spawn(self.sync_session.commit)
+venv/lib/python3.9/site-packages/sqlalchemy/util/_concurrency_py3k.py:202: in greenlet_spawn
+    result = context.switch(value)
+venv/lib/python3.9/site-packages/sqlalchemy/orm/session.py:1969: in commit
+    trans.commit(_to_root=True)
+<string>:2: in commit
+    ???
+venv/lib/python3.9/site-packages/sqlalchemy/orm/state_changes.py:139: in _go
+    ret_value = fn(self, *arg, **kw)
+venv/lib/python3.9/site-packages/sqlalchemy/orm/session.py:1256: in commit
+    self._prepare_impl()
+<string>:2: in _prepare_impl
+    ???
+venv/lib/python3.9/site-packages/sqlalchemy/orm/state_changes.py:139: in _go
+    ret_value = fn(self, *arg, **kw)
+venv/lib/python3.9/site-packages/sqlalchemy/orm/session.py:1231: in _prepare_impl
+    self.session.flush()
+venv/lib/python3.9/site-packages/sqlalchemy/orm/session.py:4312: in flush
+    self._flush(objects)
+venv/lib/python3.9/site-packages/sqlalchemy/orm/session.py:4448: in _flush
+    transaction.rollback(_capture_exception=True)
+venv/lib/python3.9/site-packages/sqlalchemy/util/langhelpers.py:146: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+venv/lib/python3.9/site-packages/sqlalchemy/orm/session.py:4408: in _flush
+    flush_context.execute()
+venv/lib/python3.9/site-packages/sqlalchemy/orm/unitofwork.py:466: in execute
+    rec.execute(self)
+venv/lib/python3.9/site-packages/sqlalchemy/orm/unitofwork.py:642: in execute
+    util.preloaded.orm_persistence.save_obj(
+venv/lib/python3.9/site-packages/sqlalchemy/orm/persistence.py:93: in save_obj
+    _emit_insert_statements(
+venv/lib/python3.9/site-packages/sqlalchemy/orm/persistence.py:1137: in _emit_insert_statements
+    result = connection.execute(
+venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py:1416: in execute
+    return meth(
+venv/lib/python3.9/site-packages/sqlalchemy/sql/elements.py:517: in _execute_on_connection
+    return connection._execute_clauseelement(
+venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py:1639: in _execute_clauseelement
+    ret = self._execute_context(
+venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py:1843: in _execute_context
+    return self._exec_insertmany_context(
+venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py:2121: in _exec_insertmany_context
+    self._handle_dbapi_exception(
+venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py:2344: in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py:2113: in _exec_insertmany_context
+    dialect.do_execute(
+venv/lib/python3.9/site-packages/sqlalchemy/engine/default.py:922: in do_execute
+    cursor.execute(statement, parameters)
+venv/lib/python3.9/site-packages/sqlalchemy/dialects/sqlite/aiosqlite.py:146: in execute
+    self._adapt_connection._handle_exception(error)
+venv/lib/python3.9/site-packages/sqlalchemy/dialects/sqlite/aiosqlite.py:298: in _handle_exception
+    raise error
+venv/lib/python3.9/site-packages/sqlalchemy/dialects/sqlite/aiosqlite.py:128: in execute
+    self.await_(_cursor.execute(operation, parameters))
+venv/lib/python3.9/site-packages/sqlalchemy/util/_concurrency_py3k.py:130: in await_only
+    return current.driver.switch(awaitable)  # type: ignore[no-any-return]
+venv/lib/python3.9/site-packages/sqlalchemy/util/_concurrency_py3k.py:195: in greenlet_spawn
+    value = await result
+venv/lib/python3.9/site-packages/aiosqlite/cursor.py:40: in execute
+    await self._execute(self._cursor.execute, sql, parameters)
+venv/lib/python3.9/site-packages/aiosqlite/cursor.py:32: in _execute
+    return await self._conn._execute(fn, *args, **kwargs)
+venv/lib/python3.9/site-packages/aiosqlite/core.py:122: in _execute
+    return await future
+venv/lib/python3.9/site-packages/aiosqlite/core.py:105: in run
+    result = function()
+E   sqlalchemy.exc.IntegrityError: (sqlite3.IntegrityError) NOT NULL constraint failed: versions.created_by
+E   [SQL: INSERT INTO versions (created_by, entity_type, entity_id, version_number, current_state, id, created_at, updated_at, is_active) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?)]
+E   [parameters: (None, 'event', '123', 1, '{"title": "Initial Event", "description": "First version", "location": "Room A"}', '9f9e14bf-71b5-4500-9d65-c3c8d9c2fa55', '2025-05-19 17:17:13.307874', '2025-05-21 11:47:13.308393', 1, None, 'event', '123', 2, '{"title": "Updated Event", "description": "Second version", "location": "Room B", "max_participants": 10}', '4a54022f-08a3-4108-a036-61c080c6dabb', '2025-05-20 17:17:13.307880', '2025-05-21 11:47:13.308398', 1, None, 'event', '123', 3, '{"title": "Final Event", "description": "Third version", "location": "Room C", "max_participants": 20, "status": "active"}', 'b71af674-74c5-4c55-960a-c4a138671413', '2025-05-21 17:17:13.307881', '2025-05-21 11:47:13.308401', 1)]
+E   (Background on this error at: https://sqlalche.me/e/20/gkpj)
+_______________________ test_invalid_version_comparison ________________________
+venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py:2113: in _exec_insertmany_context
+    dialect.do_execute(
+venv/lib/python3.9/site-packages/sqlalchemy/engine/default.py:922: in do_execute
+    cursor.execute(statement, parameters)
+venv/lib/python3.9/site-packages/sqlalchemy/dialects/sqlite/aiosqlite.py:146: in execute
+    self._adapt_connection._handle_exception(error)
+venv/lib/python3.9/site-packages/sqlalchemy/dialects/sqlite/aiosqlite.py:298: in _handle_exception
+    raise error
+venv/lib/python3.9/site-packages/sqlalchemy/dialects/sqlite/aiosqlite.py:128: in execute
+    self.await_(_cursor.execute(operation, parameters))
+venv/lib/python3.9/site-packages/sqlalchemy/util/_concurrency_py3k.py:130: in await_only
+    return current.driver.switch(awaitable)  # type: ignore[no-any-return]
+venv/lib/python3.9/site-packages/sqlalchemy/util/_concurrency_py3k.py:195: in greenlet_spawn
+    value = await result
+venv/lib/python3.9/site-packages/aiosqlite/cursor.py:40: in execute
+    await self._execute(self._cursor.execute, sql, parameters)
+venv/lib/python3.9/site-packages/aiosqlite/cursor.py:32: in _execute
+    return await self._conn._execute(fn, *args, **kwargs)
+venv/lib/python3.9/site-packages/aiosqlite/core.py:122: in _execute
+    return await future
+venv/lib/python3.9/site-packages/aiosqlite/core.py:105: in run
+    result = function()
+E   sqlite3.IntegrityError: NOT NULL constraint failed: versions.created_by
+
+The above exception was the direct cause of the following exception:
+tests/test_changelog.py:146: in test_invalid_version_comparison
+    await session.commit()
+venv/lib/python3.9/site-packages/sqlalchemy/ext/asyncio/session.py:1011: in commit
+    await greenlet_spawn(self.sync_session.commit)
+venv/lib/python3.9/site-packages/sqlalchemy/util/_concurrency_py3k.py:202: in greenlet_spawn
+    result = context.switch(value)
+venv/lib/python3.9/site-packages/sqlalchemy/orm/session.py:1969: in commit
+    trans.commit(_to_root=True)
+<string>:2: in commit
+    ???
+venv/lib/python3.9/site-packages/sqlalchemy/orm/state_changes.py:139: in _go
+    ret_value = fn(self, *arg, **kw)
+venv/lib/python3.9/site-packages/sqlalchemy/orm/session.py:1256: in commit
+    self._prepare_impl()
+<string>:2: in _prepare_impl
+    ???
+venv/lib/python3.9/site-packages/sqlalchemy/orm/state_changes.py:139: in _go
+    ret_value = fn(self, *arg, **kw)
+venv/lib/python3.9/site-packages/sqlalchemy/orm/session.py:1231: in _prepare_impl
+    self.session.flush()
+venv/lib/python3.9/site-packages/sqlalchemy/orm/session.py:4312: in flush
+    self._flush(objects)
+venv/lib/python3.9/site-packages/sqlalchemy/orm/session.py:4448: in _flush
+    transaction.rollback(_capture_exception=True)
+venv/lib/python3.9/site-packages/sqlalchemy/util/langhelpers.py:146: in __exit__
+    raise exc_value.with_traceback(exc_tb)
+venv/lib/python3.9/site-packages/sqlalchemy/orm/session.py:4408: in _flush
+    flush_context.execute()
+venv/lib/python3.9/site-packages/sqlalchemy/orm/unitofwork.py:466: in execute
+    rec.execute(self)
+venv/lib/python3.9/site-packages/sqlalchemy/orm/unitofwork.py:642: in execute
+    util.preloaded.orm_persistence.save_obj(
+venv/lib/python3.9/site-packages/sqlalchemy/orm/persistence.py:93: in save_obj
+    _emit_insert_statements(
+venv/lib/python3.9/site-packages/sqlalchemy/orm/persistence.py:1137: in _emit_insert_statements
+    result = connection.execute(
+venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py:1416: in execute
+    return meth(
+venv/lib/python3.9/site-packages/sqlalchemy/sql/elements.py:517: in _execute_on_connection
+    return connection._execute_clauseelement(
+venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py:1639: in _execute_clauseelement
+    ret = self._execute_context(
+venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py:1843: in _execute_context
+    return self._exec_insertmany_context(
+venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py:2121: in _exec_insertmany_context
+    self._handle_dbapi_exception(
+venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py:2344: in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+venv/lib/python3.9/site-packages/sqlalchemy/engine/base.py:2113: in _exec_insertmany_context
+    dialect.do_execute(
+venv/lib/python3.9/site-packages/sqlalchemy/engine/default.py:922: in do_execute
+    cursor.execute(statement, parameters)
+venv/lib/python3.9/site-packages/sqlalchemy/dialects/sqlite/aiosqlite.py:146: in execute
+    self._adapt_connection._handle_exception(error)
+venv/lib/python3.9/site-packages/sqlalchemy/dialects/sqlite/aiosqlite.py:298: in _handle_exception
+    raise error
+venv/lib/python3.9/site-packages/sqlalchemy/dialects/sqlite/aiosqlite.py:128: in execute
+    self.await_(_cursor.execute(operation, parameters))
+venv/lib/python3.9/site-packages/sqlalchemy/util/_concurrency_py3k.py:130: in await_only
+    return current.driver.switch(awaitable)  # type: ignore[no-any-return]
+venv/lib/python3.9/site-packages/sqlalchemy/util/_concurrency_py3k.py:195: in greenlet_spawn
+    value = await result
+venv/lib/python3.9/site-packages/aiosqlite/cursor.py:40: in execute
+    await self._execute(self._cursor.execute, sql, parameters)
+venv/lib/python3.9/site-packages/aiosqlite/cursor.py:32: in _execute
+    return await self._conn._execute(fn, *args, **kwargs)
+venv/lib/python3.9/site-packages/aiosqlite/core.py:122: in _execute
+    return await future
+venv/lib/python3.9/site-packages/aiosqlite/core.py:105: in run
+    result = function()
+E   sqlalchemy.exc.IntegrityError: (sqlite3.IntegrityError) NOT NULL constraint failed: versions.created_by
+E   [SQL: INSERT INTO versions (created_by, entity_type, entity_id, version_number, current_state, id, created_at, updated_at, is_active) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?), (?, ?, ?, ?, ?, ?, ?, ?, ?)]
+E   [parameters: (None, 'event', '123', 1, '{"title": "Initial Event", "description": "First version", "location": "Room A"}', 'ae773631-deb8-44b0-bc5c-bd60313580e8', '2025-05-19 17:17:13.567071', '2025-05-21 11:47:13.567653', 1, None, 'event', '123', 2, '{"title": "Updated Event", "description": "Second version", "location": "Room B", "max_participants": 10}', 'f5ae07ef-206a-4f57-a4bd-4fa6bb068e40', '2025-05-20 17:17:13.567078', '2025-05-21 11:47:13.567659', 1, None, 'event', '123', 3, '{"title": "Final Event", "description": "Third version", "location": "Room C", "max_participants": 20, "status": "active"}', 'b0751b80-c07c-451e-bc35-cb8013653b76', '2025-05-21 17:17:13.567079', '2025-05-21 11:47:13.567662', 1)]
+E   (Background on this error at: https://sqlalche.me/e/20/gkpj)
+=========================== short test summary info ============================
+FAILED tests/test_changelog.py::test_get_entity_changelog - sqlalchemy.exc.In...
+FAILED tests/test_changelog.py::test_get_changes_between_versions - sqlalchem...
+FAILED tests/test_changelog.py::test_generate_unified_diff - sqlalchemy.exc.I...
+FAILED tests/test_changelog.py::test_date_filtered_changelog - sqlalchemy.exc...
+FAILED tests/test_changelog.py::test_invalid_version_comparison - sqlalchemy....
+!!!!!!!!!!!!!!!!!!!!!!!!!! stopping after 5 failures !!!!!!!!!!!!!!!!!!!!!!!!!!!
+======================== 5 failed, 6 warnings in 1.43s =========================
