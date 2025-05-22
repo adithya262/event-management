@@ -119,24 +119,24 @@ uvicorn app.main:app --reload
 
 event-management/
 │
-├── app/                          # Main application package
-│   ├── api/                      # API route definitions (FastAPI routers)
-│   ├── core/                     # App settings, security, JWT utilities
-│   ├── db/                       # Database session and base setup
-│   ├── models/                   # SQLAlchemy ORM models
-│   ├── schemas/                  # Pydantic schemas for requests/responses
-│   ├── services/                 # Business logic and service layer
-│   └── main.py                   # Application entry point (FastAPI instance)
+├── app/ # Main application package
+│ ├── api/ # API route definitions (FastAPI routers)
+│ ├── core/ # App settings, security, JWT utilities
+│ ├── db/ # Database session and base setup
+│ ├── models/ # SQLAlchemy ORM models
+│ ├── schemas/ # Pydantic schemas for requests/responses
+│ ├── services/ # Business logic and service layer
+│ └── main.py # Application entry point (FastAPI instance)
 │
-├── alembic/                      # Alembic migrations directory
+├── alembic/ # Alembic migrations directory
 │
-├── tests/                        # Unit and integration tests
+├── tests/ # Unit and integration tests
 │
-├── docker-compose.yml           # Docker orchestration config
-├── requirements.txt             # Python dependencies
-├── alembic.ini                  # Alembic configuration file
-├── .env.example                 # Example environment variable file
-└── README.md                    # Project documentation
+├── docker-compose.yml # Docker orchestration config
+├── requirements.txt # Python dependencies
+├── alembic.ini # Alembic configuration file
+├── .env.example # Example environment variable file
+└── README.md # Project documentation
 
 
 
