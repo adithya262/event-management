@@ -1,96 +1,155 @@
-# Event Management System
+# 📅 Event Management System API
 
-A collaborative event management system built with FastAPI and PostgreSQL.
+A collaborative event/task management system built with **FastAPI**, **PostgreSQL**, **Celery**, and **Redis**.
 
-## Features
+This documentation describes how to install, configure, and run the API, including available endpoints and environment configurations.
 
-- User authentication and authorization
-- Event creation and management
-- Task assignment and tracking
-- Real-time collaboration
-- API documentation with Swagger UI
+---
 
-## Prerequisites
+## 📘 Overview
 
-- Python 3.9+
-- PostgreSQL
-- pip (Python package manager)
+- **Framework:** FastAPI
+- **Database:** PostgreSQL
+- **Background Tasks:** Celery + Redis
+- **Authentication:** JWT (token-based)
+- **API Docs:** Swagger/OpenAPI at `/docs`, ReDoc at `/redoc`
+- **Project Status:** 🚧 Under Active Development
 
-## Setup
+---
 
-1. Clone the repository:
+## 📦 Installation
+
+### Option 1: 🚀 Run via Docker (Recommended)
+
+#### ✅ Prerequisites
+
+- [Docker](https://www.docker.com/get-started)
+- [Docker Compose](https://docs.docker.com/compose/)
+
+#### 📥 Clone the Repository
+
 ```bash
 git clone <repository-url>
 cd event-management
 ```
 
-2. Create and activate virtual environment:
+#### ⚙️ Configure Environment Variables
+
+Copy and edit the environment file:
+
 ```bash
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+cp .env.example .env
 ```
 
-3. Install dependencies:
+Edit `.env` and set at least:
+SECRET_KEY=your-secure-secret-key
+DATABASE_URL=postgresql://postgres:postgres@db:5432/event_management
+REDIS_URL=redis://redis:6379
+#### 🏗️ Build and Start the Containers
+
 ```bash
+docker-compose up --build
+```
+
+- FastAPI server: [http://localhost:8000](http://localhost:8000)
+- Swagger UI: [http://localhost:8000/docs](http://localhost:8000/docs)
+- ReDoc: [http://localhost:8000/redoc](http://localhost:8000/redoc)
+- PostgreSQL: `localhost:5433`
+- Redis: `localhost:6379`
+
+---
+
+### Option 2: 🧪 Run Locally Without Docker
+
+#### ✅ Prerequisites
+
+- Python 3.9+
+- PostgreSQL
+- pip
+
+#### 🔧 Manual Setup
+
+```bash
+git clone <repository-url>
+cd event-management
+python -m venv venv
+source venv/bin/activate  # On Windows use venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-4. Create a `.env` file in the root directory with the following variables:
-```
+Create `.env` file manually or copy from `.env.example`:
+SECRET_KEY=your-secure-secret-key
 DATABASE_URL=postgresql://postgres:postgres@localhost:5432/event_management
-SECRET_KEY=your-secret-key-here
-ALGORITHM=HS256
-ACCESS_TOKEN_EXPIRE_MINUTES=30
-DEBUG=True
-API_V1_STR=/api/v1
-PROJECT_NAME=Event Management System
-```
 
-5. Create the database:
+
+
+Create database and run migrations:
+
 ```bash
 createdb event_management
-```
-
-6. Run database migrations:
-```bash
 alembic upgrade head
 ```
 
-7. Start the development server:
+Run the FastAPI server:
+
 ```bash
 uvicorn app.main:app --reload
 ```
 
-The API will be available at `http://localhost:8000`
-API documentation will be available at `http://localhost:8000/docs`
+- API: [http://localhost:8000](http://localhost:8000)
+- Docs: [http://localhost:8000/docs](http://localhost:8000/docs)
+- ReDoc: [http://localhost:8000/redoc](http://localhost:8000/redoc)
 
-## Project Structure
+---
 
-```
-event-management/
-├── alembic/              # Database migrations
-├── app/
-│   ├── api/             # API endpoints
-│   ├── core/            # Core functionality
-│   ├── db/              # Database configuration
-│   ├── models/          # SQLAlchemy models
-│   ├── schemas/         # Pydantic schemas
-│   ├── services/        # Business logic
-│   └── utils/           # Utility functions
-├── tests/               # Test files
-├── .env                 # Environment variables
-├── .gitignore          # Git ignore file
-├── alembic.ini         # Alembic configuration
-├── requirements.txt    # Project dependencies
-└── README.md          # Project documentation
-```
+## 🧪 Testing & Linting
 
-## Development
+- **Run tests:**  
+  `pytest`
 
-- Run tests: `pytest`
-- Format code: `black .`
-- Check code style: `flake8`
+- **Code style checks:**  
+  `flake8`
 
-## License
+- **Auto-format code:**  
+  `black .`
 
-This project is licensed under the MIT License. 
+---
+
+## 📂 Directory Structure
+
+<pre> ```bash event-management/ ├── app/ │ ├── api/ # API routers │ ├── core/ # App settings, JWT config │ ├── db/ # SQLAlchemy session and base │ ├── models/ # SQLAlchemy models │ ├── schemas/ # Pydantic schemas │ ├── services/ # Business logic │ └── main.py # Entry point ├── alembic/ # DB migration scripts ├── tests/ # Unit tests ├── docker-compose.yml ├── requirements.txt ├── alembic.ini ├── .env.example └── README.md ``` </pre>
+
+
+
+---
+
+## 🔐 Authentication
+
+Authorization: Bearer <your-access-token>
+
+
+- JWT token-based authentication is used.
+- Use the `/api/auth/login` endpoint to obtain an access token.
+- Include the token in the `Authorization` header for protected routes:
+
+
+---
+
+## 🚨 Common Pitfalls
+
+- **Never commit your `.env` file.** Only share `.env.example`.
+- Ensure ports `8000`, `5433` (Postgres), and `6379` (Redis) are free.
+- Database credentials must match in both `.env` and `docker-compose.yml`.
+- If you change any credentials, update them everywhere.
+
+
+---
+
+## 📮 API Reference
+
+- **Swagger UI:** [http://localhost:8000/docs](http://localhost:8000/docs)
+- **ReDoc:** [http://localhost:8000/redoc](http://localhost:8000/redoc)
+
+---
+
+**Happy coding! For questions or contributions, open an issue or pull request.**
