@@ -13,7 +13,6 @@ This documentation describes how to install, configure, and run the API, includi
 - **Background Tasks:** Celery + Redis
 - **Authentication:** JWT (token-based)
 - **API Docs:** Swagger/OpenAPI at `/docs`, ReDoc at `/redoc`
-- **Project Status:** 🚧 Under Active Development
 
 ---
 
