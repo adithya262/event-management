@@ -52,7 +52,6 @@ class Base(DeclarativeBase):
     max_time=30
 )
 async def get_db() -> AsyncGenerator[AsyncSession, None]:
-    """Dependency for getting async database sessions with error handling and retry logic."""
     async with async_session_factory() as session:
         try:
             yield session
@@ -70,7 +69,6 @@ async def get_db() -> AsyncGenerator[AsyncSession, None]:
 
 @asynccontextmanager
 async def get_db_context():
-    """Context manager for database sessions."""
     async with async_session_factory() as session:
         try:
             yield session

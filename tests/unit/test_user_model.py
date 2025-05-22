@@ -7,7 +7,6 @@ from app.core.models import UserRole
 
 @pytest.mark.asyncio
 async def test_create_user(session):
-    """Test creating a new user."""
     user = User(
         email="user1@example.com",
         username="user1",
@@ -28,8 +27,6 @@ async def test_create_user(session):
 
 @pytest.mark.asyncio
 async def test_user_unique_constraints(session):
-    """Test that unique constraints work correctly."""
-    # Create first user
     user1 = User(
         email="unique1@example.com",
         username="uniqueuser1",
@@ -39,34 +36,30 @@ async def test_user_unique_constraints(session):
     session.add(user1)
     await session.commit()
 
-    # Try to create second user with same email
     user2 = User(
-        email="unique1@example.com",  # Same email as user1
+        email="unique1@example.com",
         username="uniqueuser2",
         hashed_password="hashedpass",
         role=UserRole.VIEWER
     )
     session.add(user2)
-    with pytest.raises(Exception):  # Should raise an integrity error
+    with pytest.raises(Exception):
         await session.commit()
     await session.rollback()
 
-    # Try to create second user with same username
     user3 = User(
         email="unique2@example.com",
-        username="uniqueuser1",  # Same username as user1
+        username="uniqueuser1",
         hashed_password="hashedpass",
         role=UserRole.VIEWER
     )
     session.add(user3)
-    with pytest.raises(Exception):  # Should raise an integrity error
+    with pytest.raises(Exception):
         await session.commit()
     await session.rollback()
 
 @pytest.mark.asyncio
 async def test_user_relationships(session):
-    """Test user relationships."""
-    # Create a user
     user = User(
         email="user5@example.com",
         username="user5",
@@ -77,7 +70,6 @@ async def test_user_relationships(session):
     await session.commit()
     await session.refresh(user)
 
-    # Eagerly load all relationships
     result = await session.execute(
         select(User)
         .options(
@@ -93,7 +85,6 @@ async def test_user_relationships(session):
     )
     loaded_user = result.unique().scalar_one()
 
-    # Verify relationships are loaded
     assert loaded_user is not None
     assert loaded_user.email == user.email
     assert loaded_user.created_events is not None
@@ -106,8 +97,6 @@ async def test_user_relationships(session):
 
 @pytest.mark.asyncio
 async def test_user_role_enum(session):
-    """Test that user roles work correctly."""
-    # Create users with different roles
     viewer = User(
         email="viewer@example.com",
         username="viewer",
@@ -130,19 +119,16 @@ async def test_user_role_enum(session):
     session.add_all([viewer, editor, owner])
     await session.commit()
 
-    # Check that roles were set correctly
     assert viewer.role == UserRole.VIEWER
     assert editor.role == UserRole.EDITOR
     assert owner.role == UserRole.OWNER
 
-    # Test role comparison
     assert viewer.role.value == "viewer"
     assert editor.role.value == "editor"
     assert owner.role.value == "owner"
 
 @pytest.mark.asyncio
 async def test_user_to_dict(session):
-    """Test user serialization."""
     user = User(
         email="user6@example.com",
         username="user6",

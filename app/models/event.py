@@ -11,7 +11,6 @@ if TYPE_CHECKING:
     from app.models.user import User
 
 class RecurrencePattern(str, Enum):
-    """Patterns for recurring events."""
     NONE = "none"
     DAILY = "daily"
     WEEKLY = "weekly"
@@ -20,7 +19,6 @@ class RecurrencePattern(str, Enum):
     CUSTOM = "custom"
 
 class EventStatus(str, Enum):
-    """Possible states of an event."""
     DRAFT = "draft"
     SCHEDULED = "scheduled"
     IN_PROGRESS = "in_progress"
@@ -28,10 +26,7 @@ class EventStatus(str, Enum):
     CANCELLED = "cancelled"
 
 class Event(BaseModel):
-    """Model for events with support for recurring patterns and versioning."""
     __tablename__ = "events"
-
-    # Base fields: id, created_at, updated_at, is_active
     title = Column(String, nullable=False, index=True)
     description = Column(String, nullable=True)
     start_time = Column(DateTime, nullable=False, index=True)
@@ -47,8 +42,6 @@ class Event(BaseModel):
         values_callable=lambda x: [e.value for e in x]
     ), default=EventStatus.DRAFT, index=True)
     is_private = Column(Boolean, default=False, index=True)
-    
-    # Recurrence fields
     recurrence_pattern = Column(SQLEnum(
         RecurrencePattern,
         name='recurrencepattern',
@@ -59,14 +52,10 @@ class Event(BaseModel):
     ), default=RecurrencePattern.NONE)
     recurrence_end_date = Column(DateTime, nullable=True)
     recurrence_interval = Column(Integer, nullable=True)
-    recurrence_days = Column(JSON, nullable=True)  # For weekly/monthly patterns
-    recurrence_exceptions = Column(JSON, nullable=True)  # For storing exception dates
-    
-    # Versioning and tracking
+    recurrence_days = Column(JSON, nullable=True)
+    recurrence_exceptions = Column(JSON, nullable=True)
     current_version = Column(Integer, default=1)
     created_by = Column(String, ForeignKey("user.id"), nullable=False)
-    
-    # Relationships
     creator = relationship("User", back_populates="created_events", foreign_keys=[created_by])
     participants = relationship(
         "User",
@@ -81,16 +70,12 @@ class Event(BaseModel):
     )
     shares = relationship("EventShare", back_populates="event", cascade="all, delete-orphan")
     versions = relationship("EventVersion", back_populates="event", cascade="all, delete-orphan")
-
-    # Composite indexes for efficient querying
     __table_args__ = (
         Index('ix_events_date_range', 'start_time', 'end_time'),
         Index('ix_events_status_date', 'status', 'start_time'),
         Index('ix_events_creator_status', 'created_by', 'status'),
     )
-
     def to_dict(self) -> Dict[str, Any]:
-        """Convert event to dictionary representation."""
         return {
             "id": self.id,
             "title": self.title,
@@ -113,53 +98,38 @@ class Event(BaseModel):
             "updated_at": self.updated_at.isoformat(),
             "is_active": self.is_active
         }
-
     def get_participant_role(self, user_id: str) -> Optional[str]:
-        """Get the role of a participant in this event."""
         participation = next(
             (p for p in self.event_participations if p.user_id == user_id),
             None
         )
         return participation.role.value if participation else None
-
     def has_access(self, user_id: str, required_role: str = "viewer") -> bool:
-        """Check if a user has access to this event with the required role."""
         if self.created_by == user_id:
             return True
-        
         role = self.get_participant_role(user_id)
         if not role:
             return False
-            
         role_hierarchy = {
             "owner": 3,
             "editor": 2,
             "viewer": 1
         }
         return role_hierarchy[role] >= role_hierarchy[required_role]
-
     def check_conflict(self, other_event: 'Event') -> bool:
-        """Check if this event conflicts with another event."""
-        # Check if either event is cancelled
         if self.status == EventStatus.CANCELLED or other_event.status == EventStatus.CANCELLED:
             return False
-        
-        # Check if events overlap
         return (
             self.start_time < other_event.end_time and
             self.end_time > other_event.start_time
         )
-    
     def get_recurring_instances(self) -> List['Event']:
-        """Generate recurring event instances."""
         if self.recurrence_pattern == RecurrencePattern.NONE:
             return [self]
-        
         instances = []
         current_start = self.start_time
         current_end = self.end_time
         duration = self.end_time - self.start_time
-        
         while current_start <= self.recurrence_end_date:
             if current_start.strftime("%Y-%m-%d") not in self.recurrence_exceptions:
                 instance = Event(
@@ -171,53 +141,32 @@ class Event(BaseModel):
                     location=self.location,
                     max_participants=self.max_participants,
                     is_private=self.is_private,
-                    recurrence_pattern=RecurrencePattern.NONE  # Instances are not recurring
+                    recurrence_pattern=RecurrencePattern.NONE
                 )
                 instances.append(instance)
-            
-            # Calculate next occurrence
             if self.recurrence_pattern == RecurrencePattern.DAILY:
                 current_start += timedelta(days=self.recurrence_interval)
             elif self.recurrence_pattern == RecurrencePattern.WEEKLY:
                 current_start += timedelta(weeks=self.recurrence_interval)
             elif self.recurrence_pattern == RecurrencePattern.MONTHLY:
-                # Add months (approximate)
                 current_start += timedelta(days=30 * self.recurrence_interval)
             elif self.recurrence_pattern == RecurrencePattern.YEARLY:
-                # Add years (approximate)
                 current_start += timedelta(days=365 * self.recurrence_interval)
-            
             current_end = current_start + duration
-        
         return instances
-
 class EventParticipant(BaseModel):
-    """Model for event participants."""
     __tablename__ = "event_participants"
-
-    # Base fields are inherited from BaseModel:
-    # id, created_at, updated_at, is_active
-
-    # Foreign keys
     event_id = Column(String, ForeignKey("events.id"), primary_key=True, index=True)
     user_id = Column(String, ForeignKey("user.id"), primary_key=True, index=True)
-    
-    # Participant specific fields
     role = Column(SQLEnum(UserRole, name="userrole", native_enum=True, values_callable=lambda x: [e.value for e in x]), default=UserRole.VIEWER, index=True)
     joined_at = Column(DateTime, default=datetime.utcnow, index=True)
-    
-    # Relationships
     event = relationship("Event", back_populates="event_participations")
     user = relationship("User", back_populates="event_participations")
-
-    # Composite indexes
     __table_args__ = (
         Index('ix_event_participants_user_role', 'user_id', 'role'),
         Index('ix_event_participants_event_role', 'event_id', 'role'),
     )
-
     def to_dict(self) -> Dict[str, Any]:
-        """Convert participant to dictionary representation."""
         return {
             "id": self.id,
             "event_id": self.event_id,

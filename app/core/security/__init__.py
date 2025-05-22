@@ -132,12 +132,10 @@ def create_refresh_token(
     """Create JWT refresh token (module-level function for compatibility)."""
     return SecurityUtils.create_refresh_token(data, expires_delta)
 
-def verify_token(token: str) -> Dict[str, Any]:
-    """Verify JWT token and return payload (module-level function for compatibility)."""
+def verify_token(token: str) -> dict:
     return SecurityUtils.verify_token(token)
 
 def validate_password_strength(password: str) -> bool:
-    """Validate password strength."""
     if len(password) < 8:
         return False
     if not any(c.isupper() for c in password):
@@ -151,11 +149,10 @@ def validate_password_strength(password: str) -> bool:
     return True
 
 def create_access_token(
-    data: Dict[str, Any],
+    data: dict,
     expires_delta: Optional[timedelta] = None,
     scopes: Optional[list[str]] = None
 ) -> str:
-    """Create JWT access token (module-level function for compatibility)."""
     return SecurityUtils.create_access_token(data, expires_delta, scopes)
 
 __all__ = [

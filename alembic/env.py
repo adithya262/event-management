@@ -1,11 +1,8 @@
 import asyncio
 from logging.config import fileConfig
-
 from sqlalchemy import pool, create_engine
 from sqlalchemy.engine import Connection
-
 from alembic import context
-
 from app.core.config import settings
 from app.db.base import BaseModel
 

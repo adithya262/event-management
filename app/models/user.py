@@ -10,21 +10,14 @@ if TYPE_CHECKING:
     from app.models.sync_state import SyncState
 
 class User(BaseModel):
-    """Model for users."""
     __tablename__ = "user"
-
-    # User specific fields
     email = Column(String, unique=True, index=True, nullable=False)
     username = Column(String, unique=True, index=True, nullable=True)
     hashed_password = Column(String, nullable=False)
     full_name = Column(String, nullable=True)
     role = Column(SQLEnum(UserRole, name="userrole", native_enum=True, values_callable=lambda x: [e.value for e in x]), nullable=False, default=UserRole.USER)
-    
-    # Status fields
     is_superuser = Column(Boolean, default=False)
     is_active = Column(Boolean, default=True)
-    
-    # Relationships
     created_events = relationship("Event", back_populates="creator", foreign_keys="[Event.created_by]")
     shared_events = relationship(
         "EventShare",
@@ -52,17 +45,12 @@ class User(BaseModel):
         back_populates="user",
         cascade="all, delete-orphan"
     )
-
     @property
     def event_shares(self):
-        """Get all event shares for this user."""
         return self.shared_events + self.received_shares
-
     @property
     def disabled(self) -> bool:
-        """Get whether the user is disabled."""
         return not self.is_active
-
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         if not self.id:
@@ -72,11 +60,8 @@ class User(BaseModel):
         if not self.updated_at:
             self.updated_at = datetime.utcnow()
         if not self.username and self.email:
-            # Generate username from email if not provided
             self.username = self.email.split('@')[0]
-
     def to_dict(self) -> Dict[str, Any]:
-        """Convert user to dictionary representation."""
         return {
             "id": self.id,
             "email": self.email,
@@ -89,6 +74,5 @@ class User(BaseModel):
             "created_at": self.created_at.isoformat(),
             "updated_at": self.updated_at.isoformat()
         }
-
     def __repr__(self):
         return f"<User {self.email}>"
